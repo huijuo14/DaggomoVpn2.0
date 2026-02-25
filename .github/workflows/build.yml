@@ -87,7 +87,7 @@ jobs:
 
               // 4. CONFIGURATION AND STRINGS
               public static String SPONSOR_ID = "DaggomoVPN";
-              public static final String CLIENT_VERSION = "1.0 Daggomo";
+              public static final String CLIENT_VERSION = "1";
               public static String INFO_LINK_URL = "https://daggomo.com/info";
               public static String GET_NEW_VERSION_URL = "https://daggomo.com/download";
               public static String GET_NEW_VERSION_EMAIL = "get@daggomo.com";
