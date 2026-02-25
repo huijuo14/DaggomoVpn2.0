@@ -1301,7 +1301,7 @@ public class TunnelManager implements PsiphonTunnel.HostService, VpnManager.VpnS
             json.put("MigrateUpgradeDownloadFilename",
                     new UpgradeManager.OldDownloadedUpgradeFile(context).getFullPath());
 
-            json.put("PropagationChannelId", EmbeddedValues.PROPAGATION_CHANNEL_ID);
+            if (!TextUtils.isEmpty(EmbeddedValues.PROPAGATION_CHANNEL_ID)) { json.put("PropagationChannelId", EmbeddedValues.PROPAGATION_CHANNEL_ID); }
 
             json.put("SponsorId", tunnelConfig.sponsorId);
 
@@ -1309,11 +1309,11 @@ public class TunnelManager implements PsiphonTunnel.HostService, VpnManager.VpnS
 
             json.put("ObfuscatedServerListRootURLs", convertUrlsToJsonArray(EmbeddedValues.OBFUSCATED_SERVER_LIST_ROOT_URLS));
 
-            json.put("RemoteServerListSignaturePublicKey", EmbeddedValues.REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY);
+            if (!TextUtils.isEmpty(EmbeddedValues.REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY)) { json.put("RemoteServerListSignaturePublicKey", EmbeddedValues.REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY); }
 
-            json.put("ServerEntrySignaturePublicKey", EmbeddedValues.SERVER_ENTRY_SIGNATURE_PUBLIC_KEY);
+            if (!TextUtils.isEmpty(EmbeddedValues.SERVER_ENTRY_SIGNATURE_PUBLIC_KEY)) { json.put("ServerEntrySignaturePublicKey", EmbeddedValues.SERVER_ENTRY_SIGNATURE_PUBLIC_KEY); }
 
-            json.put("ExchangeObfuscationKey", EmbeddedValues.SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY);
+            if (!TextUtils.isEmpty(EmbeddedValues.SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY)) { json.put("ExchangeObfuscationKey", EmbeddedValues.SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY); }
 
             if (useUpstreamProxy) {
                 if (UpstreamProxySettings.getUseHTTPProxy(context)) {
@@ -1328,10 +1328,10 @@ public class TunnelManager implements PsiphonTunnel.HostService, VpnManager.VpnS
             json.put("EmitDiagnosticNetworkParameters", true);
 
             json.put("FeedbackUploadURLs", convertFeedbackUrlsToJsonArray(EmbeddedValues.FEEDBACK_UPLOAD_URLS));
-            json.put("FeedbackEncryptionPublicKey", EmbeddedValues.FEEDBACK_ENCRYPTION_PUBLIC_KEY);
+            if (!TextUtils.isEmpty(EmbeddedValues.FEEDBACK_ENCRYPTION_PUBLIC_KEY)) { json.put("FeedbackEncryptionPublicKey", EmbeddedValues.FEEDBACK_ENCRYPTION_PUBLIC_KEY); }
             json.put("EnableFeedbackUpload", true);
 
-            json.put("AdditionalParameters", EmbeddedValues.ADDITIONAL_PARAMETERS);
+            if (!TextUtils.isEmpty(EmbeddedValues.ADDITIONAL_PARAMETERS)) { json.put("AdditionalParameters", EmbeddedValues.ADDITIONAL_PARAMETERS); }
 
             // If this is a temporary tunnel (like for UpgradeChecker) we need to override some of
             // the implicit config values.

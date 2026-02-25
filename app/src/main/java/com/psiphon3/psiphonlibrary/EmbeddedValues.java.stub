@@ -104,7 +104,7 @@ cog.outl('public static String DATA_COLLECTION_INFO_URL = "%s";' % utils.get_emb
     public static final String SERVER_ENTRY_SIGNATURE_PUBLIC_KEY = "sHuUVTWaRyh5pZwy4UguSgkwmBe0EHtJJkoF5WrxmvA=";
     public static final String SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY = "DpXzloJk1Hw6aSzmKKky0xcahsEHubch81Mi6K0XMlU=";
 
-    public static final String ADDITIONAL_PARAMETERS = "e30=";
+    public static final String ADDITIONAL_PARAMETERS = "";
 
     public static String SPONSOR_ID = "DaggomoVPN";
 
