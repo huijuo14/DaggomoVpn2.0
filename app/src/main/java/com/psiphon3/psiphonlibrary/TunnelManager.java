@@ -1233,6 +1233,38 @@ public class TunnelManager implements PsiphonTunnel.HostService, VpnManager.VpnS
         return vpnBuilder;
     }
 
+    private static JSONArray convertUrlsToJsonArray(String[] urls) throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < urls.length; i++) {
+            JSONObject urlObject = new JSONObject();
+            urlObject.put("URL", urls[i]);
+            // Use OnlyAfterAttempts: 0 for first URL, 2 for fallbacks
+            urlObject.put("OnlyAfterAttempts", i == 0 ? 0 : 2);
+            // Use SkipVerify: false for first URL, true for fallbacks
+            urlObject.put("SkipVerify", i != 0);
+            jsonArray.put(urlObject);
+        }
+        return jsonArray;
+    }
+
+    private static JSONArray convertFeedbackUrlsToJsonArray(String[] urls) throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < urls.length; i++) {
+            JSONObject urlObject = new JSONObject();
+            urlObject.put("URL", urls[i]);
+            // Add request headers for feedback URLs
+            JSONObject headers = new JSONObject();
+            JSONArray headerValues = new JSONArray();
+            headerValues.put(" bucket-owner-full-control");
+            headers.put("x-amz-acl", headerValues);
+            urlObject.put("RequestHeaders", headers);
+            urlObject.put("OnlyAfterAttempts", i == 0 ? 0 : 2);
+            urlObject.put("SkipVerify", i != 0);
+            jsonArray.put(urlObject);
+        }
+        return jsonArray;
+    }
+
     /**
      * Create a tunnel-core config suitable for different tasks (i.e., the main Psiphon app
      * tunnel, the UpgradeChecker temp tunnel and the FeedbackWorker upload operation).
@@ -1261,7 +1293,7 @@ public class TunnelManager implements PsiphonTunnel.HostService, VpnManager.VpnS
 
             if (UpgradeChecker.upgradeCheckNeeded(context)) {
 
-                json.put("UpgradeDownloadURLs", new JSONArray(EmbeddedValues.UPGRADE_URLS_JSON));
+                json.put("UpgradeDownloadURLs", convertUrlsToJsonArray(EmbeddedValues.UPGRADE_DOWNLOAD_URLS));
 
                 json.put("UpgradeDownloadClientVersionHeader", "x-amz-meta-psiphon-client-version");
 
@@ -1275,9 +1307,9 @@ public class TunnelManager implements PsiphonTunnel.HostService, VpnManager.VpnS
 
             json.put("SponsorId", tunnelConfig.sponsorId);
 
-            json.put("RemoteServerListURLs", new JSONArray(EmbeddedValues.REMOTE_SERVER_LIST_URLS_JSON));
+            json.put("RemoteServerListURLs", convertUrlsToJsonArray(EmbeddedValues.REMOTE_SERVER_LIST_URLS));
 
-            json.put("ObfuscatedServerListRootURLs", new JSONArray(EmbeddedValues.OBFUSCATED_SERVER_LIST_ROOT_URLS_JSON));
+            json.put("ObfuscatedServerListRootURLs", convertUrlsToJsonArray(EmbeddedValues.OBFUSCATED_SERVER_LIST_ROOT_URLS));
 
             json.put("RemoteServerListSignaturePublicKey", EmbeddedValues.REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY);
 
@@ -1297,7 +1329,7 @@ public class TunnelManager implements PsiphonTunnel.HostService, VpnManager.VpnS
 
             json.put("EmitDiagnosticNetworkParameters", true);
 
-            json.put("FeedbackUploadURLs", new JSONArray(EmbeddedValues.FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_URLS_JSON));
+            json.put("FeedbackUploadURLs", convertFeedbackUrlsToJsonArray(EmbeddedValues.FEEDBACK_UPLOAD_URLS));
             json.put("FeedbackEncryptionPublicKey", EmbeddedValues.FEEDBACK_ENCRYPTION_PUBLIC_KEY);
             json.put("EnableFeedbackUpload", true);
 

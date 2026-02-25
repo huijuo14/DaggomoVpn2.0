@@ -39,44 +39,67 @@ jobs:
           cat <<EOF > "$DIR/EmbeddedValues.java"
           package com.psiphon3.psiphonlibrary;
           import android.content.Context;
-          
+          import net.grandcentrix.tray.AppPreferences;
+          import net.grandcentrix.tray.core.ItemNotFoundException;
+          import net.grandcentrix.tray.core.SharedPreferencesImport;
+
           public class EmbeddedValues {
-              // 1. A SOLUCAO DO ERRO BASE64:
-              public static final String ADDITIONAL_PARAMETERS = "e30=";
+              // 1. ADDITIONAL PARAMETERS (Fix for unmarshaling and required config)
+              public static final String ADDITIONAL_PARAMETERS = "uICBULj++X46IEIp IGNvoIhsm6o8SV3JlxyeFKNbc40RfLSCiMRHUqsWjwOIVTGpbyM1OY+deLWczHFLpZ1FqpSiNQ8QUM8p6CvKRNXSKl2C1slOTrIYnvkUwulZ/BO3oRqfhcWCXUhdow57cGxjdSGm/mMRGJwVb0WRNpnPaXUMcOZ58/JeHkEqHoiRJSWkC7UifFG05QQJd40kogvZBTVWy1R13majKyIv2UwazxiW5FvY2HjK7apsPoucOho7vrJfsMWKfMFlGoxNtensqJqIlseRdTGrhqv1ezqd017hwqTFIWooGWnDpAQp41A+giIIoG/Et/u7C1kw7+UIyQTRFzvZhpaz1OrN88XBWFl4bu5AL4hK62sUZyxt+4slvxnUA9UBo+y9YeUSC8uWklexl75JBNFjs5oixWPkGV3SYsbu7P2yirLCk7V4gMjVzCRL59EgHZBAragAqNZ3xVhEf1XQoaz/qB/+LN1prVhFChgaDqr6/ivrqJp7zRS92VatO76Fy95b5mUjQXkIx111IOqOSzdBYdoVoJ/i2M9Wyj2hlDJtHHaUXYrZS+sC4xopcXTHqZHKplP7teYslXh6/4Oan2A6Q5vwHUzk9kfcldtUJlkca7b5g0m6yIEtB4gkTI9H+WB5YB3gAPwwhVkNn8JT0XLa+jkaWrosRmANODAZPrHXXzTWCRamq8hBW78Zkbg5FU/MDV2+14G+/Z6l/WGHZwB4x13ukNjON/ov1oLm1F2aNExEb5JpVil2mM+FbZ+7fTBtH7ddskyjQ/2tG6XzmBqbcpK/SS6jqWF9CyI0hIocam2UTgtLmknG7t3zZZAXQKE9b2zdfbnaE+VTSHjTLJZ0NpeuInffLsq8is5dYz2ulWBKkVgu1NAQjqmd8QYVAN7/VCsnFmPzdlV29XAEcMD2w7/l/r7t230ugcPwM0klYxKZrg1fQ2QXfzqeOb1sSebON/kHYaYHq0TdYBm6jJYWJe5WtaFOEest09xUx81cQ80Bz/Ro1ybjSGsSIfeIQFUg5mHH91ufj0+dHZSiUiWrrw7GfGj5OYV2fcWdmaa0v7bcHHSoQqKikEFsaR35h4UTsP1o9eK/XHN1xHtcszXkqSe2BFVphpDRrTskk1B8nVfMYMcKH7/zDzaOtI46Q9Y2qXB4usGVat90XbZbmf1CbWx7hi106xg6WZNirH8iqWJT/c9lLIpGWq8P6n2fjecYHdwcl0TgzFVPE05EiuQwilx0h6DD0vpmLvlydPNGohFjIB4I5w7S3iQLoLwBRNoak1MuI1RpIjFJg/IuCYOCGWwkh5edo6qAhWkGJrYezY77gL7w2w96GO3exHsoM9m09FL99bMTtFPiajGvRSJbAIioXq1vu9kEgK0ux9IjfRYbRBxoMybyTgsk/E6igXRNqW6fNzuEBfuvtPEU9GQ/Qc44ggwRXxhhAO1865UDuxLy6Kjl48nf4aEnEF3fdeGLE0MNAUMOIhnwMVFxX2hK96dy6+zy+zgzGUQ5mrXoDCJ3/WwrKQbb5ciQrFaXbGM7BzXVKG4KX3k45biyFSdZAO3M/DBN/1VNiIayphHwN/8ZBXiRTgX8i8b0uZjcMTRfKn6+D1v+aMFGC23rfHQuxFqPYXO7ii3RKV10GLUDB7IElzaZcYfbkFLz7VDO6VNaIbw4Qd9bsGuCGiu43RSfDm9eq3Lzg1HOwse7yDoknvKrux0Ex2jGavCm2gHLmYU2Wquk+oE70xbVNAUCp68DnLnOl/gH56612oDNB1PTgPAODtVBHzgXQj+lorHuy0cyVhqvt/ZmN8w6OVjpMZiyzBIt5oMCnC65yE/k1AellxBBhx0PL2UldHbtize4rUrPcWcuI5ZmRIu4nmwHnVbDPSUVHQ7tCLbjAx0Ww07okW43BXO+2YFbQzNbQtSExwlSz/s4Vj4LeCetQ1nFx2QRCVOjGlFXWoUxovHMjrGDEHyJYjc...";
               
-              // 2. LISTA VAZIA (Força o app a baixar da internet na primeira vez)
               public static final String[] EMBEDDED_SERVER_LIST = new String[0];
               
-              // 3. CHAVES E LINKS EXTRAIDOS DE CODIGO ABERTO (OSINT):
-              public static final String REMOTE_SERVER_LIST_URLS_JSON = "[\"https://s3.amazonaws.com/psiphon/web/sec/server_list\"]"; 
-              public static final String OBFUSCATED_SERVER_LIST_ROOT_URLS_JSON = "[\"https://s3.amazonaws.com/psiphon/web/sec/\"]"; 
-              public static final String REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY = "RWQCAjEucF4s0227qGgPib8j33N69tL3J18E1D9F15g8P9nKq3G8H7qB";
-              public static final String SERVER_ENTRY_SIGNATURE_PUBLIC_KEY = "RWQCAjEucF4s0227qGgPib8j33N69tL3J18E1D9F15g8P9nKq3G8H7qB";
-              public static final String SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY = "3b006746f35a4d33a7e53f19e6022e0394c8e718cc932f99";
+              // 2. URL LISTS (Using the new String[] structure)
+              public static final String[] REMOTE_SERVER_LIST_URLS = {
+                  "https://s3.amazonaws.com/psiphon/web/mjr4-p23r-puwl/server_list_compressed",
+                  "https://www.expertfmghostivy.com/web/mjr4-p23r-puwl/server_list_compressed",
+                  "https://www.raceegguxdas.com/web/mjr4-p23r-puwl/server_list_compressed",
+                  "https://www.latinofirmddhosts.com/web/mjr4-p23r-puwl/server_list_compressed"
+              };
+              public static final String[] OBFUSCATED_SERVER_LIST_ROOT_URLS = {
+                  "https://s3.amazonaws.com/psiphon/web/mjr4-p23r-puwl/osl",
+                  "https://www.expertfmghostivy.com/web/mjr4-p23r-puwl/osl",
+                  "https://www.raceegguxdas.com/web/mjr4-p23r-puwl/osl",
+                  "https://www.latinofirmddhosts.com/web/mjr4-p23r-puwl/osl"
+              };
+              public static final String[] UPGRADE_DOWNLOAD_URLS = {
+                  "https://s3.amazonaws.com/psiphon/web/mjr4-p23r-puwl/PsiphonAndroid.apk.upgrade",
+                  "https://www.expertfmghostivy.com/web/mjr4-p23r-puwl/PsiphonAndroid.apk.upgrade",
+                  "https://www.raceegguxdas.com/web/mjr4-p23r-puwl/PsiphonAndroid.apk.upgrade",
+                  "https://www.latinofirmddhosts.com/web/mjr4-p23r-puwl/PsiphonAndroid.apk.upgrade"
+              };
+              public static final String[] FEEDBACK_UPLOAD_URLS = {
+                  "https://s3.amazonaws.com/psiupload/",
+                  "https://www.nwbugnewslettergateway.com.global.prod.fastly.net/",
+                  "https://www.greenlottosafariewest.com.global.prod.fastly.net/",
+                  "https://www.celebrityfeedballs.com.global.prod.fastly.net/"
+              };
 
-              // 4. AS SUAS CONFIGURACOES DAGGOMO:
-              public static final String PROPAGATION_CHANNEL_ID = "0000000000000000";
-              public static final String UPGRADE_URLS_JSON = "[]";
-              public static final String FEEDBACK_DIAGNOSTIC_INFO_UPLOAD_URLS_JSON = "[]";
-              public static final String FEEDBACK_ENCRYPTION_PUBLIC_KEY = "";
-              public static final String INFO_LINK_URL = "https://daggomo.com/info";
+              // 3. PUBLIC KEYS AND CHANNEL ID
+              public static final String REMOTE_SERVER_LIST_SIGNATURE_PUBLIC_KEY = "MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAgEAt7Ls+/39r+T6zNW7GiVpJfzq/xvL9SBH5rIFnk0RXYEYavax3WS6HOD35eTAqn8AniOwiH+DOkvgSKF2caqk/y1dfq47Pdymtwzp9ikpB1C5OfAysXzBiwVJlCdajBKvBZDerV1cMvRzCKvKwRmvDmHgphQQ7WfXIGbRbmmk6opMBh3roE42KcotLFtqp0RRwLtcBRNtCdsrVsjiI1Lqz/lH+T61sGjSjQ3CHMuZYSQJZo/KrvzgQXpkaCTdbObxHqb6/+i1qaVOfEsvjoiyzTxJADvSytVtcTjijhPEV6XskJVHE1Zgl+7rATr/pDQkw6DPCNBS1+Y6fy7GstZALQXwEDN/qhQI9kWkHijT8ns+i1vGg00Mk/6J75arLhqcodWsdeG/M/moWgqQAnlZAGVtJI1OgeF5fsPpXu4kctOfuZlGjVZXQNW34aOzm8r8S0eVZitPlbhcPiR4gT/aSMz/wd8lZlzZYsje/Jr8u/YtlwjjreZrGRmG8KMOzukV3lLmMppXFMvl4bxv6YFEmIuTsOhbLTwFgh7KYNjodLj/LsqRVfwz31PgWQFTEPICV7GCvgVlPRxnofqKSjgTWI4mxDhBpVcATvaoBl1L/6WLbFvBsoAUBItWwctO2xalKxF5szhGm8lccoc5MZr8kfE0uxMgsxz4er68iCID+rsCAQM=";
+              public static final String SERVER_ENTRY_SIGNATURE_PUBLIC_KEY = "sHuUVTWaRyh5pZwy4UguSgkwmBe0EHtJJkoF5WrxmvA=";
+              public static final String SERVER_ENTRY_EXCHANGE_OBFUSCATION_KEY = "DpXzloJk1Hw6aSzmKKky0xcahsEHubch81Mi6K0XMlU=";
+              public static final String FEEDBACK_ENCRYPTION_PUBLIC_KEY = "MIICIDANBgkqhkiG9w0BAQEFAAOCAg0AMIICCAKCAgEAxltZsddAqX0qE4dK+X7QfcPfoGbvs6DAxkwY5Cb7mcWW9YpNesOdb+aq0kmDEeUDnMYIVEnUnNLFSOpF/CvjvZ1WQpxYy2sE/ulQUXO9XCtoucM4jaZIKza9TPNUsWaiiMC86UOO6kjZLRodosXwgdykfbn0GGOy90urkMTygSi1JmnUjDqHXNr8mgVS/9qTMX68N598CjzU3zeBJi5Rh2wChRzMDw7y0umJ/xJ7vevJOmEp5qGg4J4x5hMAagG1AF4SDgXwVdSKcwcRoeUUxmmWRgyirPJdEgyLCFNX0Z1LhWmB+Kz8aq7+d+5eEIoIxjmRu4O9AfB/ngvNwapIBSDj/STPszsluH2lIGY9nDBVxKZqQ8oGjDQMoFedzRu2z2dkVYqCoN7Lfve3JTku1MxsIylh67+9emW9d1F+I5v+LWicBrusmRStSB7z4CUuqZEa8GYKNGM0A1Axkdz9y/Dv+4NB6cEw01szEXl/9hJxKh8MStLCFZ1eNaokrcbxnPGHDdZSqGmV3x8eRy1GvQv0xRnoRpyaqdmQvjb7XupiTD+5GT+7PjAwXTN4kJtm39DyIEwKmmXWcFQtn6JWefwRbcXwKKDjj99QssyYQp+7EPiv/QwUAMnHTN2CrWYXEhbBHBkdgxkioPJ47j8nXxydXPBKXcnCruQ4ICEmrsECAQM=";
+              public static final String PROPAGATION_CHANNEL_ID = "92AACC5BABE0944C";
               public static final String UPGRADE_SIGNATURE_PUBLIC_KEY = "";
-              public static final String GET_NEW_VERSION_URL = "https://daggomo.com/download";
-              public static final String GET_NEW_VERSION_EMAIL = "get@daggomo.com";
-              public static boolean hasEverBeenSideLoaded(Context context) { return false; }
-              public static final String FAQ_URL = "https://daggomo.com/faq";
-              public static final String DATA_COLLECTION_INFO_URL = "https://daggomo.com/privacidade";
+
+              // 4. CONFIGURATION AND STRINGS
+              public static String SPONSOR_ID = "DaggomoVPN";
               public static final String CLIENT_VERSION = "1.0 Daggomo";
-              public static void initialize(Context context) {}
+              public static String INFO_LINK_URL = "https://daggomo.com/info";
+              public static String GET_NEW_VERSION_URL = "https://daggomo.com/download";
+              public static String GET_NEW_VERSION_EMAIL = "get@daggomo.com";
+              public static String FAQ_URL = "https://daggomo.com/faq";
+              public static String DATA_COLLECTION_INFO_URL = "https://daggomo.com/privacidade";
+              public static final String FILE_BUG_EMAIL_ADDRESS = "suporte@daggomo.com";
+              public static final boolean IGNORE_NON_EMBEDDED_SERVER_ENTRIES = false;
               public static final boolean IS_PLAY_STORE_BUILD = false;
               public static final String[] HOME_TAB_URL_EXCLUSIONS = new String[0];
-              public static final String FILE_BUG_EMAIL_ADDRESS = "suporte@daggomo.com";
               public static final boolean CAN_PROMPT_FOR_RATING = false;
               public static final String UPGRADE_URL_STRING = "";
               public static final String[] UPGRADE_URL_STRINGS = new String[0];
               public static final String UPGRADE_VERSION_FILE_URL_STRING = "";
               public static final boolean SUPPORTS_SUBSCRIPTIONS = false;
-              public static final String SPONSOR_ID = "DaggomoVPN";
               public static final boolean EXCLUDE_APPS_BY_DEFAULT = false;
               public static final String[] DATA_TRANSFER_RATE_EXCLUSIONS = new String[0];
               public static final boolean SHOW_NETWORK_ALERTS = false;
@@ -95,6 +118,45 @@ jobs:
               public static final boolean REQUIRE_INITIAL_AUTHORIZATION = false;
               public static final String INITIAL_AUTHORIZATION_URL = "";
               public static final boolean DISABLE_TIMEOUTS = false;
+
+              public static boolean hasEverBeenSideLoaded(Context context) { return false; }
+
+              private static final String SPONSOR_ID_PREFERENCE = "sponsorIdPreference";
+              private static final String INFO_LINK_URL_PREFERENCE = "infoLinkUrlPreference";
+              private static final String GET_NEW_VERSION_URL_PREFERENCE = "getNewVersionUrlPreference";
+              private static final String GET_NEW_VERSION_EMAIL_PREREFENCE = "getNewVersionEmailPreference";
+              private static final String FAQ_URL_PREFERENCE = "faqUrlPreference";
+              private static final String DATA_COLLECTION_INFO_URL_PREFERENCE = "dataCollectionInfoUrlPreference";
+
+              public static void initialize(Context context) {
+                  AppPreferences mpPreferences = new AppPreferences(context);
+                  String prefFileName = context.getPackageName() + "_preferences";
+
+                  mpPreferences.migrate(
+                          new SharedPreferencesImport(context, prefFileName, SPONSOR_ID_PREFERENCE, SPONSOR_ID_PREFERENCE),
+                          new SharedPreferencesImport(context, prefFileName, INFO_LINK_URL_PREFERENCE, INFO_LINK_URL_PREFERENCE),
+                          new SharedPreferencesImport(context, prefFileName, GET_NEW_VERSION_URL_PREFERENCE, GET_NEW_VERSION_URL_PREFERENCE),
+                          new SharedPreferencesImport(context, prefFileName, GET_NEW_VERSION_EMAIL_PREREFENCE, GET_NEW_VERSION_EMAIL_PREREFENCE),
+                          new SharedPreferencesImport(context, prefFileName, FAQ_URL_PREFERENCE, FAQ_URL_PREFERENCE),
+                          new SharedPreferencesImport(context, prefFileName, DATA_COLLECTION_INFO_URL_PREFERENCE, DATA_COLLECTION_INFO_URL_PREFERENCE)
+                  );
+
+                  if (!IS_PLAY_STORE_BUILD) {
+                      mpPreferences.put(SPONSOR_ID_PREFERENCE, SPONSOR_ID);
+                      mpPreferences.put(INFO_LINK_URL_PREFERENCE, INFO_LINK_URL);
+                      mpPreferences.put(GET_NEW_VERSION_URL_PREFERENCE, GET_NEW_VERSION_URL);
+                      mpPreferences.put(GET_NEW_VERSION_EMAIL_PREREFENCE, GET_NEW_VERSION_EMAIL);
+                      mpPreferences.put(FAQ_URL_PREFERENCE, FAQ_URL);
+                      mpPreferences.put(DATA_COLLECTION_INFO_URL_PREFERENCE, DATA_COLLECTION_INFO_URL);
+                  } else {
+                      SPONSOR_ID = mpPreferences.getString(SPONSOR_ID_PREFERENCE, SPONSOR_ID);
+                      INFO_LINK_URL = mpPreferences.getString(INFO_LINK_URL_PREFERENCE, INFO_LINK_URL);
+                      GET_NEW_VERSION_URL = mpPreferences.getString(GET_NEW_VERSION_URL_PREFERENCE, GET_NEW_VERSION_URL);
+                      GET_NEW_VERSION_EMAIL = mpPreferences.getString(GET_NEW_VERSION_EMAIL_PREREFENCE, GET_NEW_VERSION_EMAIL);
+                      FAQ_URL = mpPreferences.getString(FAQ_URL_PREFERENCE, FAQ_URL);
+                      DATA_COLLECTION_INFO_URL = mpPreferences.getString(DATA_COLLECTION_INFO_URL_PREFERENCE, DATA_COLLECTION_INFO_URL);
+                  }
+              }
           }
           EOF
           echo "Super Chave Secreta forjada com SUCESSO ABSOLUTO!"

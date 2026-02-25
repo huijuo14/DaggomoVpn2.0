@@ -143,7 +143,7 @@ public class UpgradeChecker extends BroadcastReceiver {
      * @return true if the app is allowed to self-upgrade, false otherwise.
      */
     private static boolean allowedToSelfUpgrade(Context appContext) {
-        if (EmbeddedValues.UPGRADE_URLS_JSON.length() == "[]".length()) {
+        if (EmbeddedValues.UPGRADE_DOWNLOAD_URLS.length == 0) {
             // We don't know where to find an upgrade.
             return false;
         }
