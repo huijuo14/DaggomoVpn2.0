@@ -1254,9 +1254,7 @@ public class TunnelManager implements PsiphonTunnel.HostService, VpnManager.VpnS
             urlObject.put("URL", urls[i]);
             // Add request headers for feedback URLs
             JSONObject headers = new JSONObject();
-            JSONArray headerValues = new JSONArray();
-            headerValues.put(" bucket-owner-full-control");
-            headers.put("x-amz-acl", headerValues);
+            headers.put("x-amz-acl", " bucket-owner-full-control");
             urlObject.put("RequestHeaders", headers);
             urlObject.put("OnlyAfterAttempts", i == 0 ? 0 : 2);
             urlObject.put("SkipVerify", i != 0);

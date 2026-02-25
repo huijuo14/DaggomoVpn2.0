@@ -2,7 +2,7 @@ name: Gerar Daggomo VPN
 
 on:
   push:
-    branches: [ fix-psiphon-config-unmarshal-error-15425589351112566749 ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
